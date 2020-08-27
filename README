@@ -1,0 +1,13 @@
+a binder library wrote in C language.
+
+Test Environment:
+    Ubuntu 16.04 with Android binder driver
+    How to insmod binder driver into Ubuntu system: refer to below link:
+    https://github.com/anbox/anbox-modules
+
+Compile and run command:
+    make
+    export LD_LIBRARY_PATH=./
+    ./svr_manager &
+    ./test_services &
+    ./test_client
