@@ -1,6 +1,6 @@
 #include "binder_common.h"
 #include "binder_io.h"
-
+#include <fcntl.h>
 
 /***********************binder io write functions***********************/
 
@@ -140,6 +140,24 @@ int binder_io_append_fd(tBinderIo * bio, int fd){
     struct binder_fd_object *fd_obj = NULL;
 
     if(x_likely(bio)){
+        /*
+            the memory area of binder_fd_object is same as flat_binder_object
+        */
+
+        
+        #if 0
+        /* Duplicate the descriptor so that caller can do whatever with
+         the fd it passed in. ???
+         Note: dup fd and tranfer fd point to the same file table in kernel(just increase reference of the file table), 
+         each file point changed , other fds will also changed.
+         so, do we really need dup a new fd??? I don't think so.
+         */
+        const int dupfd = fcntl(fd, F_DUPFD_CLOEXEC, 0);
+        if(dupfd < 0){
+            printf("Warning: binder dup fd fail : %d\n", fd);
+            return -1;
+        }
+        #endif
         /*
             the memory area of binder_fd_object is same as flat_binder_object
         */

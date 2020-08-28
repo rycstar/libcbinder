@@ -11,3 +11,9 @@ Compile and run command:
     ./svr_manager &
     ./test_services &
     ./test_client
+
+gcc -Wall -O3 -o led_client test/led_client.c -L./ -lcbinder -lpthread -I./include
+gcc -Wall -O3 -o led_service test/led_service.c -L./ -lcbinder -lpthread -I./include
+gcc -Wall -O3 -o fd_service test/fd_service.c -L./ -lcbinder -lpthread -I./include
+gcc -Wall -O3 -o fd_client test/fd_client.c -L./ -lcbinder -lpthread -I./include
+

@@ -1,8 +1,8 @@
-#CC=gcc
-CC=arm-linux-gnueabihf-gcc
+CC=gcc
+#CC=arm-linux-gnueabihf-gcc
 
 CFLAGS:=-Wall -O3
-CFLAGS += -DBINDER_IPC_32BIT
+#CFLAGS += -DBINDER_IPC_32BIT
 
 OBJS=src/binder_hal.o \
      src/binder_io.o \
