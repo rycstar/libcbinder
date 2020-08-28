@@ -263,14 +263,14 @@ uint32_t binder_io_get_uint32(tBinderIo *bio){
     return ptr ? *ptr : 0;
 }
 
-uint8_t* binder_io_get_string(tBinderIo *bio, size_t *sz){
+char* binder_io_get_string(tBinderIo *bio, size_t *sz){
     /*first get the len of string*/
     uint32_t s_len = binder_io_get_uint32(bio);
 
     if(s_len == INVALID_STRING_TAG) return NULL;
 
     if(sz) *sz = s_len;
-    return binder_io_get(bio, s_len + 1);
+    return (char*)binder_io_get(bio, s_len + 1);
 }
 
 uint32_t binder_io_get_fd(tBinderIo *bio, uint32_t offset_idx){

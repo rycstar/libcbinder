@@ -665,7 +665,7 @@ size_t binder_list_service(int idx, char* s_name, int len){
     flush_commands(ti);
 
     if(BINDER_STATUS_OK ==_binder_cmd_wait_rsp(ti, &reply)){
-        uint8_t* buf= binder_io_get_string(&reply, &s_len);
+        char* buf= binder_io_get_string(&reply, &s_len);
         if(buf && s_name){
             snprintf(s_name, len, "%s", buf);
         }

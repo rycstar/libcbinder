@@ -88,7 +88,7 @@ void binder_io_to_txn(tBinderIo *bio, struct binder_transaction_data *txn);
 
 uint32_t binder_io_get_uint32(tBinderIo *bio);
 
-uint8_t* binder_io_get_string(tBinderIo *bio, size_t *sz);
+char* binder_io_get_string(tBinderIo *bio, size_t *sz);
 
 uint32_t binder_io_get_fd(tBinderIo *bio, uint32_t offset_idx);
 

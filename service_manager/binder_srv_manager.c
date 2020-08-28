@@ -85,13 +85,15 @@ int svcmgr_handler(tIpcThreadInfo *ti,
 
     strict_policy = binder_io_get_uint32(&msg);
 
+    if(strict_policy != 0) return -1;
+    
     name = binder_io_get_string(&msg, NULL);
 
     if(!name || strncmp(name,DEFAULT_SRV_MANAGER_NAME,strlen(DEFAULT_SRV_MANAGER_NAME))){
         printf("Error: invalid service name !!!\n");
         return -1;
     }
-    printf("--svcmgr_handler code : %d--\n",txn->code);
+    
     switch(txn->code){
         case SVC_MGR_GET_SERVICE:
         case SVC_MGR_CHECK_SERVICE:
@@ -106,7 +108,7 @@ int svcmgr_handler(tIpcThreadInfo *ti,
             if(!svc) return -1;
             printf("get svc name:%s\n",svc);
             handle = binder_io_get_ref(&msg,0);
-            if(si = find_svc(svc)){
+            if(!!(si = find_svc(svc))){
                 printf("Warning: service exist! override it...\n");
                 svc_death(ti, (void*)si);
                 si->handle = handle;
@@ -192,7 +194,6 @@ int main(int argc, char * argv[]){
             if(cmd == 0){
                 continue;
             }else{
-                const size_t data_len = _IOC_SIZE(cmd);
                 const void * data = (void *)(rbuf.ptr + sizeof(cmd));
                 switch (cmd){
                     case BR_NOOP:

@@ -63,7 +63,7 @@ int main(int argc, char * argv[]){
     memset(&msg, 0, sizeof(msg));
     if(BINDER_STATUS_OK == binder_cmd_async_call(ti,&bio,&msg,key_handle,1)){
         /*async call don't have reply message*/
-        //binder_cmd_freebuf(ti, msg.data0);
+        binder_cmd_freebuf(ti, msg.data0);
     } 
     flush_commands(ti);
     gettimeofday(&tpend,NULL);

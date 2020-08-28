@@ -10,7 +10,7 @@ int led_on_transact(uint32_t code, tBinderIo * msg, tBinderIo * reply, uint32_t 
     char * name = NULL;
     if(!msg || !reply) return -1;
 
-    name = (char *)binder_io_get_string(msg, NULL);
+    name = binder_io_get_string(msg, NULL);
 
     printf("led_on_transact get name from client : %s code:%d\n",name, code);
 
@@ -24,7 +24,7 @@ int key_on_transact(uint32_t code, tBinderIo * msg, tBinderIo * reply, uint32_t 
     char * name = NULL;
     if(!msg || !reply) return -1;
 
-    name = (char *)binder_io_get_string(msg, NULL);
+    name = binder_io_get_string(msg, NULL);
 
     printf("key_on_transact get name from client : %s code:%d\n",name, code);
 
