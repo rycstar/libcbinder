@@ -43,7 +43,6 @@ int talk_with_driver(tIpcThreadInfo *ti,int read_flag){
     if(w_buf)
         binder_buf_init(&tmp_w_buf, w_buf->ptr, w_buf->consumed, 0);
 
-    
     if((ret = binder_write_read(ti->bs, w_buf ? &tmp_w_buf : NULL, r_buf)) >= 0){
         if(w_buf){
             unprocess_size = tmp_w_buf.size - tmp_w_buf.consumed;
@@ -481,7 +480,7 @@ int binder_execute_cmds(tIpcThreadInfo * ti, uint32_t cmd, void * data){
         case BR_NOOP:
             break;
         case BR_SPAWN_LOOPER:
-            binder_thread_enter_loop(0);
+            binder_thread_enter_loop(0,0);
             break;
         default:
             printf("Warning:Unknown cmd :%d received from binder!!!\n",cmd);
@@ -546,11 +545,12 @@ void* binder_thread_loop_run(void * arg){
     cmd = BC_EXIT_LOOPER;
     ti_write_outbuf(ti, &cmd, sizeof(cmd));
     flush_commands(ti);
+    if(t_data) free(t_data);
     return NULL;
 }
 
 
-int binder_thread_enter_loop(int isMain){
+int binder_thread_enter_loop(int isMain, int pending){
     pthread_t tid;
     tBinderThreadData *t_data = NULL;
     /*start a thread to listen binder return msg*/
@@ -565,8 +565,8 @@ int binder_thread_enter_loop(int isMain){
 
     /*generate and set thread name*/
 
-    pthread_join(tid,NULL);
-    if(t_data) free(t_data);
+    if(pending) pthread_join(tid,NULL);
+    else pthread_detach(tid);
     return 0;
 }
 

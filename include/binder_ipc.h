@@ -116,7 +116,7 @@ void flush_commands(tIpcThreadInfo *ti);
 
 
 /*binder services functions*/
-int binder_thread_enter_loop(int isMain);
+int binder_thread_enter_loop(int isMain, int pending);
 
 void binder_threads_shutdown();
 

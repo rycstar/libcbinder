@@ -40,7 +40,7 @@ tBinderService fd_service = {
 int main(int argc, char * argv[]){
     binder_add_service(FD_SERVICE_NAME,&fd_service);
 
-    binder_thread_enter_loop(1);
+    binder_thread_enter_loop(1,1);
 
     binder_threads_shutdown();
 }
