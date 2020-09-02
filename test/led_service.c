@@ -12,8 +12,8 @@ int led_on_transact(uint32_t code, tBinderIo * msg, tBinderIo * reply, uint32_t 
 
     name = binder_io_get_string(msg, NULL);
 
-    printf("led_on_transact get name from client : %s code:%d, sleep 10s\n",name, code);
-    sleep(1);
+    printf("led_on_transact get msg from client:%s\n",name);
+    
     binder_io_append_uint32(reply, 0);
     
     return 0;
@@ -25,9 +25,7 @@ int key_on_transact(uint32_t code, tBinderIo * msg, tBinderIo * reply, uint32_t 
     if(!msg || !reply) return -1;
 
     name = binder_io_get_string(msg, NULL);
-
-    printf("key_on_transact get name from client : %s code:%d, sleep 10s\n",name, code);
-    sleep(1);
+    printf("key_on_transact get msg from client:%s\n",name);
     binder_io_append_uint32(reply, 0);
     
     return 0;
@@ -62,7 +60,6 @@ int main(int argc, char * argv[]){
     binder_list_service(1, name, sizeof(name));
     printf("binder service service 1 : %s\n", name);
     binder_thread_enter_loop(1,1);
-    printf("===============\n");
 
     binder_threads_shutdown();
     return 0;
