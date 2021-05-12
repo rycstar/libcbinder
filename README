@@ -5,15 +5,14 @@ Test Environment:
     How to insmod binder driver into Ubuntu system: refer to below link:
     https://github.com/anbox/anbox-modules
 
-Compile and run command:
+Compile command:
+    mkdir cmake/build -p
+    cd cmake/build
+    cmake ../..
     make
-    export LD_LIBRARY_PATH=./
-    ./svr_manager &
-    ./test_services &
-    ./test_client
-
-gcc -Wall -O3 -o led_client test/led_client.c -L./ -lcbinder -lpthread -I./include
-gcc -Wall -O3 -o led_service test/led_service.c -L./ -lcbinder -lpthread -I./include
-gcc -Wall -O3 -o fd_service test/fd_service.c -L./ -lcbinder -lpthread -I./include
-gcc -Wall -O3 -o fd_client test/fd_client.c -L./ -lcbinder -lpthread -I./include
+    
+Run command:
+    ./service_manager &
+    ./led_services &
+    ./led_client
 
