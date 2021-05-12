@@ -10,9 +10,14 @@ Compile command:
     cd cmake/build
     cmake ../..
     make
-    
+
 Run command:
     ./service_manager &
     ./led_services &
     ./led_client
+
+Tips:
+    we recommend you use the Android native library libbinder.so, it provide a tool named "AIDL" which can auto generate most of binder service and client code.
+    you can refer to another repo of mine : https://github.com/rycstar/binder-linux.git
+    I have verify it on Ubuntu 16.04 and embedded linux system, it's better than libcbinder except the library size.
 
